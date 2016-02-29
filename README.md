@@ -1,5 +1,7 @@
 # Space Tyckiting
 
+![Space Tyckiting banner](space-tyckiting-banner.jpg)
+
 Welcome to **Futurice Space Tyckiting**!
 
 This repository contains the Space Tyckiting server and client skeletons.
