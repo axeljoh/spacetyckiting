@@ -22,10 +22,10 @@ ready made skeletons for following programming languages:
 ## Running your bot
 
 In order to run your bots, you need a running server and running opponents. During development phase you can download the server code from:
-https://github.com/futurice/space-tyckiting/server
+https://github.com/futurice/space-tyckiting/tree/master/server
 
 Clients are located at:
-https://github.com/futurice/space-tyckiting/clients
+https://github.com/futurice/space-tyckiting/tree/master/clients
 
 *NOTE* you need to have Node.JS installed
 
