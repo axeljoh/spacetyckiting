@@ -1,3 +1,22 @@
+/** D Tyckiting client - A websocket client for a fight to kill all other bots
+ *  Copyright greenify (2016)
+ *
+ *  This file is part of D Tyckiting client.
+ *
+ *  D Tyckiting client is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Rust Tyckiting client is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with D Tyckiting client.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import std.getopt;
 
 struct GameConfig
@@ -14,10 +33,10 @@ GameConfig parseCLI(string[] args)
     auto helpInformation = getopt(
     args,
     config.passThrough,
-    "host|H",  &gconfig.host,    // numeric
-    "port|P",    &gconfig.port,      // string
-    "verbose|v", &gconfig.verbose,   // flag
-    "name|n", &gconfig.name,   // flag
+    "host|H",  &gconfig.host,
+    "port|P",    &gconfig.port,
+    "verbose|v", &gconfig.verbose,
+    "name|n", &gconfig.name,
     );
     if (helpInformation.helpWanted || args.length > 1)
     {
