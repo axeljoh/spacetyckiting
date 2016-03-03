@@ -125,7 +125,7 @@ class TykitingClient():
         Args:
             ws: WebSocket client instance
         """
-        logging.debug('WebSocket conneciton opened')
+        logging.debug('WebSocket connection opened')
 
     def on_ws_message(self, ws, raw_message):
         """
