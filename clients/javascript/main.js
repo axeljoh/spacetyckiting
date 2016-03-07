@@ -109,7 +109,7 @@ function main(host, port, botName, aiName, webgameSpec) {
     // Socket
     var socket = new WebSocket(TARGET_URL);
 
-   function socketSend(data) {
+    function socketSend(data) {
       var json = JSON.stringify(data);
       console.log("SEND", chalk.cyan("->"), chalk.gray(json));
       socket.send(json);
@@ -132,21 +132,21 @@ function main(host, port, botName, aiName, webgameSpec) {
       var you = data.you;
 
       you.bots.forEach(function(bot, index) {
-          bots[index] = {
-              botId: bot.botId,
-              name: bot.name,
-              x: bot.x,
-              y: bot.y,
-              hp: config.starthHp,
-              last: {},
-              alive: true,
-              move: move(bot.botId),
-              radar: radar(bot.botId),
-              cannon: cannon(bot.botId),
-              message: messageAction
-          };
+        bots[index] = {
+          botId: bot.botId,
+          name: bot.name,
+          x: bot.x,
+          y: bot.y,
+          hp: config.startHp,
+          last: {},
+          alive: true,
+          move: move(bot.botId),
+          radar: radar(bot.botId),
+          cannon: cannon(bot.botId),
+          message: messageAction
+        };
 
-          botIdMap[bot.botId] = bots[index];
+        botIdMap[bot.botId] = bots[index];
       });
     }
 
