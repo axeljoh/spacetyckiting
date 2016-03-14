@@ -15,7 +15,10 @@ cd clients/go/dummy
 go get
 
 # Run
-go run ai/dummy.go
+go run dummy/dummy.go
+
+# Help
+go run dummy/dummy.go -help
 ```
 
 ## Prerequisites

@@ -39,7 +39,7 @@ func Run(ai Ai, name string) (err error) {
 	// If connection fails return error
 	//var res *http.Response
 	if c.conn, _, err = websocket.DefaultDialer.Dial(c.addr, nil); err != nil {
-		fmt.Printf("[client][error] : Could not connec to %s, %s ", c.addr, err)
+		c.Log(fmt.Sprintf("[client][error] : Could not connec to %s, %s ", c.addr, err))
 		return
 	}
 
@@ -76,14 +76,14 @@ func (c *Client) read() {
 		// Read message from socket
 		_, data, err = c.conn.ReadMessage()
 		if err != nil {
-			fmt.Printf("[client][websocket] : Disconnected %s\n", err)
+			c.Log(fmt.Sprintf("[client][websocket] : Disconnected %s\n", err))
 			return
 		}
 		c.Log(fmt.Sprintf("[client][RX] : %s", data))
 
 		// Parse message type
 		if err = json.Unmarshal(data, &msg); err != nil {
-			fmt.Printf("[client][error] : Could not parse message type from %s, %s", data, err)
+			c.Log(fmt.Sprintf("[client][error] : Could not parse message type from %s, %s", data, err))
 			continue
 		}
 
@@ -93,21 +93,21 @@ func (c *Client) read() {
 		case SERVER_CONNECTED:
 			var connMsg ConnectedMessage
 			if err = json.Unmarshal(data, &connMsg); err != nil {
-				fmt.Printf("[client][error] : Could not parse connected message %s, %s", data, err)
+				c.Log(fmt.Sprintf("[client][error] : Could not parse connected message %s, %s", data, err))
 				continue
 			}
 			c.ai.OnConnected(connMsg)
 
 			// Send join message after successful connection
 			if c.conn.WriteJSON(joinMsg); err != nil {
-				fmt.Printf("[client][error] : Could not send join message %s", err)
+				c.Log(fmt.Sprintf("[client][error] : Could not send join message %s", err))
 			}
 			break
 
 		case SERVER_START:
 			var startMsg StartMessage
 			if err = json.Unmarshal(data, &startMsg); err != nil {
-				fmt.Printf("[client][error] : Could not parse start message %s, %s", data, err)
+				c.Log(fmt.Sprintf("[client][error] : Could not parse start message %s, %s", data, err))
 				continue
 			}
 			c.ai.OnStart(startMsg)
@@ -116,7 +116,7 @@ func (c *Client) read() {
 		case SERVER_EVENTS:
 			var eventsMsg EventsMessage
 			if err = json.Unmarshal(data, &eventsMsg); err != nil {
-				fmt.Printf("[client][error] : Could not parse events message %s, %s", data, err)
+				c.Log(fmt.Sprintf("[client][error] : Could not parse events message %s, %s", data, err))
 				continue
 			}
 			c.ai.OnEvents(eventsMsg)
@@ -126,7 +126,7 @@ func (c *Client) read() {
 			actionsMsg.Actions = c.ai.Move()
 
 			if c.conn.WriteJSON(actionsMsg); err != nil {
-				fmt.Printf("[client][error] : Could not send join message %s", err)
+				c.Log(fmt.Sprintf("[client][error] : Could not send join message %s", err))
 			}
 
 			break
@@ -134,7 +134,7 @@ func (c *Client) read() {
 		case SERVER_END:
 			var endMsg EndMessage
 			if err = json.Unmarshal(data, &endMsg); err != nil {
-				fmt.Printf("[client][error] : Could not parse end message %s, %s", data, err)
+				c.Log(fmt.Sprintf("[client][error] : Could not parse end message %s, %s", data, err))
 				continue
 			}
 			c.ai.OnEnd(endMsg)
