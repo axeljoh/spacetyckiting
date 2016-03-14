@@ -38,23 +38,18 @@ Create test file and run `go test`
 ## Editors
 
 Vim plugins:
-
-[vim-go](https://github.com/fatih/vim-go)
+* [vim-go](https://github.com/fatih/vim-go)
 
 Sublime plugins:
-
-[GoSublime](https://github.com/DisposaBoy/GoSublime)
-[sublime-build](https://github.com/golang/sublime-build)
-
+* [GoSublime](https://github.com/DisposaBoy/GoSublime)
+* [sublime-build](https://github.com/golang/sublime-build)
 
 Visual Studio plugins:
-
-[vscode-go](https://github.com/Microsoft/vscode-go)
+* [vscode-go](https://github.com/Microsoft/vscode-go)
 
 ## Learning materials
 
 Golang tutorials:
-
-[Tour of go](https://tour.golang.org)
-[Go by Example](https://gobyexample.com/)
-[Learn Go](https://github.com/golang/go/wiki/Learn)
+* [Tour of go](https://tour.golang.org)
+* [Go by Example](https://gobyexample.com/)
+* [Learn Go](https://github.com/golang/go/wiki/Learn)
