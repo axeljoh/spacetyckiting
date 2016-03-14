@@ -20,7 +20,7 @@ go run ai/dummy.go
 
 ## Prerequisites
 
-Only thing you need is [Go](https://golang.org/doc/install).
+Download and install [Go](https://golang.org/doc/install).
 
 ## How-to start with new AI?
 
