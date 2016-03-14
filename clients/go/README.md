@@ -1,6 +1,6 @@
 # Space Tyckiting Go client
 
-![logo](logo.svg)
+![logo](logo.svg =120x)
 
 *Author: Henri Koski*
 
