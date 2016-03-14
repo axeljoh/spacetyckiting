@@ -3,15 +3,6 @@
 *.a
 *.so
 
-sensing.sh
-
-# Folders
-_obj
-_test
-cert/
-ui
-ACP2WebUI
-
 # Architecture specific extensions/prefixes
 *.[568vq]
 [568vq].out
