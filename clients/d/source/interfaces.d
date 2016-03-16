@@ -178,7 +178,7 @@ class AI
         foreach (action; actions)
         {
             auto selectedBot = myBots.filter!(a => a.botId == action.botId);
-            assert(selectedBot.empty, "Invalid bot id");
+            assert(!selectedBot.empty, "Invalid bot id");
             Bot bot = selectedBot.front;
             Pos pos = action.pos;
             if(cast(MoveAction) action && action.type == "move")
