@@ -135,7 +135,7 @@ A bot's action can be one of the following: `move`, `radar` or `cannon`.
         ```json
         {
             "event": "see",
-            "source": <the id of bot that shot the saw the target>"
+            "source": <the id of bot that saw the target>"
             "botId": <the id of bot that was seen>,
             "pos": {
                 "x": <x-coordinate of target>,
@@ -174,8 +174,8 @@ A bot's action can be one of the following: `move`, `radar` or `cannon`.
             "event": "move",
             "botId": <id of bot that moved>,
             "pos": {
-                "x": <x-coordinate of target that was detected>,
-                "y": <y-coordinate of target that was detected>
+                "x": <new x-coordinate of bot>,
+                "y": <new y-coordinate of bot>
             }
         }
         ```   
@@ -183,7 +183,7 @@ A bot's action can be one of the following: `move`, `radar` or `cannon`.
         ```json
         {
             "event": "noaction",
-            "botId": <the id of bot that missed turn seen>
+            "botId": <the id of bot that missed turn>
         }
         ```
 
