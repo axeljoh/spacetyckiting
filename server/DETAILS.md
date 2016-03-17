@@ -4,8 +4,8 @@ Clients and servers communicate WebSockets (https://developer.mozilla.org/en-US/
 
 ## Client-side messages
 
-All actions for bots are send in an actions message. If several actions
-for one round or one bot is provided only the latest in round will be taken in account.
+All actions for bots are sent in an actions message. If several actions
+for one round or one bot is provided only the latest in the round will be taken in account.
 
 #### Join
 
@@ -101,7 +101,7 @@ A bot's action can be one of the following: `move`, `radar` or `cannon`.
         "otherTeams": [<array of opponent teams>]
     ```
 
-* `events` All bots receive events after each turn has been played. This message will tell what happened after your move.
+* `events` All bots receive events after each turn has been played. This message will tell you what happened after your move.
 
     ```json
     {
@@ -168,7 +168,7 @@ A bot's action can be one of the following: `move`, `radar` or `cannon`.
             "damage" <amount of damage>
         }
         ```   
-    * `move` One of your team bots new position after move action. Cannot move out of map.
+    * `move` One of your team's bots new position after a move action. Cannot move out of the map.
         ```json
         {
             "event": "move",
@@ -225,7 +225,7 @@ A bot's action can be one of the following: `move`, `radar` or `cannon`.
     ```
     
 * `Bot`
-    In general if bot message is about an enemy bot, both current hitpoints and positions is omitted.
+    In general if a bot message is about an enemy bot, both current hitpoints and positions is omitted.
 
     ```json
         {
