@@ -38,7 +38,7 @@ function radarCoords(config, radarnum, radars){
   var x; 
   var y;
   while(coords){
-    x = = randInt((config.fieldRadius*-1)+2, config.fieldRadius-2);
+    x = randInt((config.fieldRadius*-1)+2, config.fieldRadius-2);
     if(x < 0){
       y = randInt((config.fieldRadius*-1)-x+2, config.fieldRadius-2);
     }
@@ -47,8 +47,8 @@ function radarCoords(config, radarnum, radars){
     }
     coords = false;
     if(radarPoints){
-      for (int i = 0; i < radarPoints.length; i++){
-        if(x>radarPoints[i][0]-6 && x<radarPoints[i][0]+6 && (( (x<radarPoints[i][0] && y> radarPoints[i][1]-6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y< radarPoints[i][1]+6 )) || ((x>radarPoints[i][0] && y< radarPoints[i][1]+6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y> radarPoints[i][1]-6 )))
+      for (var i = 0; i < radarPoints.length; i++){
+        if(x>radarPoints[i][0]-6 && x<radarPoints[i][0]+6 && (( (x<radarPoints[i][0] && y> radarPoints[i][1]-6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y< radarPoints[i][1]+6 )) || ((x>radarPoints[i][0] && y< radarPoints[i][1]+6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y> radarPoints[i][1]-6 ))))
           coords = true;
       }
     }
@@ -149,6 +149,8 @@ module.exports = function Ai() {
     var shooters = doBots.length-movers;
     movers = 0;
 
+    var radarnum = 1;
+
 
     //Issuing commands
     for(var i = 0; i < doBots.length; i++){
@@ -184,7 +186,6 @@ module.exports = function Ai() {
       if(doBots[i].directive === "cannon"){
         if(shooters === 1){
           lastShot = doBots[i];
-          nextRadar = doBots[i];
           doBots[i].bot.cannon(doBots[i].target.x-1, doBots[i].target.y+1);
           continue;
         }
@@ -227,8 +228,8 @@ module.exports = function Ai() {
           continue;
         }
         else{
-          nextRadar.bot.radar(nextRadar.target.x, nextRadar.target.y);
-          nextRadar = false;
+          lastShot.bot.radar(lastShot.target.x, lastShot.target.y);
+          lastShot = false;
           continue;
         }
       }
