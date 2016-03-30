@@ -11,13 +11,15 @@ var botNames = [
 ];
 
 
-
+//wanted moves
 var moveSet = [[-2, 2], [-2, 1], [-2, 0], [-1, 2], [-1, -1], [0, 2], [0, -2], [1,1], [1, -2], [2, -2], [2, -1], [2, 0]];
-var limMoveSet = [[-2, 0], [-1, -1], [0, -2], [0, 2], [1, 1], [2, 0]];
+
+
+//var limMoveSet = [[-2, 0], [-1, -1], [0, -2], [0, 2], [1, 1], [2, 0]];
 var lastShot;
 var movers = 0;
 var shooting = false;
-var radarPoints = [];
+
 
 
 
@@ -31,10 +33,9 @@ function randInt(min, max) {
 
 
 
-
 //Function for OK radaring coordinates
-function radarCoords(config, radarnum, radars){
-  var coords = true;
+function radarCoords(config, radarnum){
+  var  = true;
   var x; 
   var y;
   while(coords){
@@ -45,30 +46,26 @@ function radarCoords(config, radarnum, radars){
     else{
       y = randInt((config.fieldRadius*-1)+2, config.fieldRadius -x-2);
     }
-    coords = false;
-    if(radarPoints){
-      for (int i = 0; i < radarPoints.length; i++){
-        if(x>radarPoints[i][0]-6 && x<radarPoints[i][0]+6 && (( (x<radarPoints[i][0] && y> radarPoints[i][1]-6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y< radarPoints[i][1]+6 )) || ((x>radarPoints[i][0] && y< radarPoints[i][1]+6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y> radarPoints[i][1]-6 )))
-          coords = true;
-      }
-    }
 
+    if()
 
   }
-
-  radarPoints.push([x, y]);
-  if(radarnum === radars)
-    radarPoints = [];
-
-
   return {x:x, y:y};
 }
 
 
 
 
+/*Returnset with each entry having the following:
+    {bot: bot to command
+    directive: what the bor should to (example "move")
 
+    if a bot  needs to shoot, entry also has the following value
+
+    target: {x, y}
+  } */
 function evaluate(events, bots, config){
+
 
   var retBotSet = [];
   var moveBots = [];
@@ -146,8 +143,14 @@ module.exports = function Ai() {
     //Evaluating the situation
     var doBots = evaluate(events, bots, config);  
 
+
+
+    //Count how many of the bots are shooting
     var shooters = doBots.length-movers;
     movers = 0;
+
+    //Keeping track of all the radaring bots
+    var radarnum = 1;
 
 
     //Issuing commands
@@ -158,16 +161,22 @@ module.exports = function Ai() {
       if(doBots[i].directive === "move"){
         var set = -1;
         var move;
+
+        //Choose a place on the map
         while(set<0){
           set = randInt(0, moveSet.length-1);
           move = {x:moveSet[set][0]+doBots[i].bot.x, y:moveSet[set][1]+doBots[i].bot.y}
           if(move.x<-14 || move.x>14 || (move.x<0 && move.y<((config.fieldRadius*-1)-move.x)) || (move.x<0 && move.y>config.fieldRadius) || (move.x>0 && move.y<(config.fieldRadius*-1)) || (move.x>0 && move.y>(config.fieldRadius -move.x)))
             set = -1;
         }
+
+
         doBots[i].bot.move(move.x, move.y);
         continue;
       }
 
+
+      //Virhekoodia
       /*if(doBots[i].directive === "seen"){
         var set = -1;
         var move;
@@ -181,11 +190,13 @@ module.exports = function Ai() {
         continue;
       }*/
 
+
+
+      //Following if-statement holds different objectives for all the bots based on how many are shooting.
       if(doBots[i].directive === "cannon"){
         if(shooters === 1){
           lastShot = doBots[i];
-          nextRadar = doBots[i];
-          doBots[i].bot.cannon(doBots[i].target.x-1, doBots[i].target.y+1);
+          doBots[i].bot.cannon(doBots[i].target.x, doBots[i].target.y);
           continue;
         }
 
@@ -219,16 +230,17 @@ module.exports = function Ai() {
 
       }
 
+      
       if(doBots[i].directive === "radar"){
         if(!lastShot){
-          var pos = radarCoords(config, radarnum, shooters);
+          var pos = radarCoords(config, radarnum);
           radarnum++;
           doBots[i].bot.radar(pos.x, pos.y);
           continue;
         }
         else{
-          nextRadar.bot.radar(nextRadar.target.x, nextRadar.target.y);
-          nextRadar = false;
+          lastShot.bot.radar(lastShot.target.x, lastShot.target.y);
+          lastShot = false;
           continue;
         }
       }
