@@ -203,7 +203,7 @@ function main(host, port, botName, aiName, webgameSpec) {
     // Game is event driven:
     socket.onmessage = function (rawContent) {
       var content = JSON.parse(rawContent.data);
-      console.log("RECV", chalk.magenta("<-"), chalk.grey(JSON.stringify(content)));
+     // console.log("RECV", chalk.magenta("<-"), chalk.grey(JSON.stringify(content)));
 
       switch (content.type) {
         case "connected": handleConnected(content); break;

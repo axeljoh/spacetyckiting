@@ -1,3 +1,4 @@
+
 "use strict";
 
 var _ = require("lodash");
@@ -14,7 +15,9 @@ module.exports = function Ai() {
   function makeDecisions(roundId, events, bots, config) {
     bots.forEach(function(bot) {
       var ps = position.neighbours(position.make(bot.x, bot.y), config.move);
+      console.log(ps.length);
       var pos = ps[randInt(0, ps.length - 1)];
+      console.log(pos);
       bot.move(pos.x, pos.y);
     });
 
