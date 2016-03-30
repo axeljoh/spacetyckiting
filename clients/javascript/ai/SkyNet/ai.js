@@ -14,6 +14,7 @@ var botNames = [
 
 var moveSet = [[-2, 2], [-2, 1], [-2, 0], [-1, 2], [-1, -1], [0, 2], [0, -2], [1,1], [1, -2], [2, -2], [2, -1], [2, 0]];
 var limMoveSet = [[-2, 0], [-1, -1], [0, -2], [0, 2], [1, 1], [2, 0]];
+var shootSet = [[1, -1], [1, 0], [0, 1], [-1, 1], [-1, 0], [0, 1]];
 var lastShot;
 var movers = 0;
 var shooting = false;
@@ -186,7 +187,8 @@ module.exports = function Ai() {
       if(doBots[i].directive === "cannon"){
         if(shooters === 1){
           lastShot = doBots[i];
-          doBots[i].bot.cannon(doBots[i].target.x-1, doBots[i].target.y+1);
+          var rnd = randInt(0, shootSet.length-1);
+          doBots[i].bot.cannon(doBots[i].target.x+shootSet[rnd][0], doBots[i].target.y+shootSet[rnd][1]);
           continue;
         }
 
