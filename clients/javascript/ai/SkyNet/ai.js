@@ -19,6 +19,7 @@ var moveSet = [[-2, 2], [-2, 1], [-2, 0], [-1, 2], [-1, -1], [0, 2], [0, -2], [1
 var lastShot;
 var movers = 0;
 var shooting = false;
+var radarPoints = [];
 
 
 
@@ -34,8 +35,8 @@ function randInt(min, max) {
 
 
 //Function for OK radaring coordinates
-function radarCoords(config, radarnum){
-  var  = true;
+function radarCoords(config, radarnum, radars){
+  var coords = true;
   var x; 
   var y;
   while(coords){
@@ -46,10 +47,21 @@ function radarCoords(config, radarnum){
     else{
       y = randInt((config.fieldRadius*-1)+2, config.fieldRadius -x-2);
     }
-
-    if()
+    coords = false;
+    if(radarPoints){
+      for (int i = 0; i < radarPoints.length; i++){
+        if(x>radarPoints[i][0]-6 && x<radarPoints[i][0]+6 && (( (x<radarPoints[i][0] && y> radarPoints[i][1]-6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y< radarPoints[i][1]+6 )) || ((x>radarPoints[i][0] && y< radarPoints[i][1]+6-(radarPoints[i][0]-x)) || (x<radarPoints[i][0] && y> radarPoints[i][1]-6 )))
+          coords = true;
+      }
+    }
 
   }
+
+  radarPoints.push([x, y]);
+  if(radarnum === radars)
+    radarPoints = [];
+
+
   return {x:x, y:y};
 }
 
@@ -233,7 +245,7 @@ module.exports = function Ai() {
       
       if(doBots[i].directive === "radar"){
         if(!lastShot){
-          var pos = radarCoords(config, radarnum);
+          var pos = radarCoords(config, radarnum, shooters);
           radarnum++;
           doBots[i].bot.radar(pos.x, pos.y);
           continue;
